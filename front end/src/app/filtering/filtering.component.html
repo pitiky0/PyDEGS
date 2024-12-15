@@ -1,0 +1,71 @@
+<div class="container">
+    <h2>Filter FASTQ Files</h2>
+  
+ 
+    <ul class="file-list">
+      <div *ngIf="isLoading" class="loading-container">
+        <span class="loading">Filtering in progress...</span>
+      </div>
+    
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+    
+      <div *ngIf="message" class="message">
+        {{ message }}
+      </div>
+      <br>
+      <li *ngFor="let file of fastqFiles" class="file-name">
+        {{ file.file_name }}
+        <button (click)="toggleForm(file.file_name)" [disabled]="isLoading">Filter</button>
+      </li>
+    </ul>
+  
+
+  
+    <div *ngIf="showForm" class="modal" (click)="closeForm()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeForm()">&times;</span>
+        <h3>Filter Options for {{ selectedFile }}</h3>
+  
+        <div class="form-group-container">
+          <div class="form-group">
+            <label for="truncateStartBases">Truncate Start Bases:</label>
+            <input type="number" id="truncateStartBases" [(ngModel)]="truncateStartBases" class="form-control">
+          </div>
+    
+          <div class="form-group">
+            <label for="truncateEndBases">Truncate End Bases:</label>
+            <input type="number" id="truncateEndBases" [(ngModel)]="truncateEndBases" class="form-control">
+          </div>
+    
+          <div class="form-group">
+            <label for="leftAdapter">Left Adapter:</label>
+            <input type="text" id="leftAdapter" [(ngModel)]="leftAdapter" class="form-control">
+          </div>
+    
+          <div class="form-group">
+            <label for="rightAdapter">Right Adapter:</label>
+            <input type="text" id="rightAdapter" [(ngModel)]="rightAdapter" class="form-control">
+          </div>
+    
+          <div class="form-group">
+            <label for="minLength">Minimum Length:</label>
+            <input type="number" id="minLength" [(ngModel)]="minLength" class="form-control">
+          </div>
+    
+          <div class="form-group">
+            <label for="nBases">Maximum N Bases:</label>
+            <input type="number" id="nBases" [(ngModel)]="nBases" class="form-control">
+          </div>
+    
+          <div class="form-group">
+            <label for="complexity">Complexity (%):</label>
+            <input type="number" id="complexity" [(ngModel)]="complexity" class="form-control">
+          </div>
+        </div>
+  <br>
+        <button (click)="onFilter()" class="btn btn-primary" [disabled]="isLoading || !selectedFile || !isFormValid()">Start Filtering</button>
+      </div>
+    </div>
+  </div>

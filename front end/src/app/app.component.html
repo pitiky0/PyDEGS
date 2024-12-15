@@ -1,0 +1,170 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav *ngIf="isLoggedIn" #sidenav mode="side" opened="true" class="sidenav">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+
+
+
+
+      <button mat-list-item class="dropdown-btn" (click)="toggleDropdown('fastq')">
+
+        <mat-icon>folder</mat-icon>
+
+        Fastq Management
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <div class="dropdown-container" [class.active]="isFastqDropdownOpen">
+        <a mat-list-item routerLink="/Upload-file">
+          <mat-icon>cloud_upload</mat-icon>
+          Upload File
+        </a>
+        <a mat-list-item routerLink="/list-files">
+          <mat-icon>folder_open</mat-icon>
+          All Files
+        </a>
+
+      </div>
+
+
+
+
+
+      <button mat-list-item class="dropdown-btn-qc" (click)="toggleDropdown('quality-control')">
+
+        <mat-icon>check_circle</mat-icon>
+        Quality Control
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <div class="dropdown-container" [class.active]="isQualityContolDropdownOpen">
+        <a mat-list-item routerLink="/quality-control">
+          <mat-icon>done_all</mat-icon>
+
+          Quality Control
+        </a>
+
+        <a mat-list-item routerLink="/list-qc-files">
+          <mat-icon>fact_check</mat-icon>
+
+          List Quality Control files
+      </a>
+
+      </div>
+
+      <button mat-list-item class="dropdown-btn-filter" (click)="toggleDropdown('filtering')">
+        <mat-icon>filter_list</mat-icon>
+        Filtering
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <div class="dropdown-container" [class.active]="isFilteringDropdownOpen">
+        <a mat-list-item routerLink="/filtering">
+          <mat-icon>filter_list</mat-icon>
+          Filtering
+        </a>
+        <a mat-list-item routerLink="/list-filtering-files">
+          <mat-icon>filter_alt</mat-icon>
+          list filtering files
+        </a>
+      </div>
+
+
+      <button mat-list-item class="dropdown-btn-align" (click)="toggleDropdown('alignment')">
+
+        <mat-icon>format_align_left</mat-icon>
+
+        Alignment
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <div class="dropdown-container" [class.active]="isAlignmentDropdownOpen">
+        <a mat-list-item routerLink="/alignment">
+          <mat-icon>format_align_justify</mat-icon>
+          Alignment
+        </a>
+        <a mat-list-item routerLink="/list-alignment-files">
+          <mat-icon>format_align_center</mat-icon>
+          list alignment Files
+        </a>
+
+      </div>
+
+      <button mat-list-item class="dropdown-btn-quantifier" (click)="toggleDropdown('quantification')">
+
+        <mat-icon>equalizer</mat-icon>
+
+        Quantification
+        <mat-icon>arrow_drop_down</mat-icon>
+
+      </button>
+      <div class="dropdown-container" [class.active]="isQuantificationDropdownOpen">
+        <a mat-list-item routerLink="/quantification">
+          <mat-icon>equalizer</mat-icon>
+          Quantification
+        </a>
+        <a mat-list-item routerLink="/list-quantification">
+          <mat-icon>format_list_numbered</mat-icon>
+          list Quantification
+        </a>
+
+      </div>
+
+      <button mat-list-item class="dropdown-btn-quantifier" (click)="toggleDropdown('diff-expression')">
+
+        <mat-icon>insert_chart</mat-icon>
+        Diff Expression
+        <mat-icon>arrow_drop_down</mat-icon>
+
+      </button>
+      <div class="dropdown-container" [class.active]="isDiffExpressionDropdownOpen">
+        <a mat-list-item routerLink="/diff-expression">
+          <mat-icon>insert_chart</mat-icon>
+          Diff Expression
+        </a>
+        <a mat-list-item routerLink="/diff-expression-results">
+          <mat-icon>list</mat-icon>
+          Diff Expression Results
+        </a>
+      </div>
+
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button *ngIf="isLoggedIn" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <nav class="navbar navbar-expand navbar-dark " id="navbar">
+        <div class="container">
+          <a class="navbar-brand title" routerLink="/">  PyDEGS</a>
+          <ul class="navbar-nav mr-auto" routerLinkActive="active">
+            <li class="nav-item">
+              <a href="/home" class="nav-link" routerLink="home"></a>
+            </li>
+          </ul>
+          <ul *ngIf="!isLoggedIn" class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="/register" class="nav-link" routerLink="register"><mat-icon>person_add</mat-icon>Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a href="/login" class="nav-link" routerLink="login"><mat-icon>login</mat-icon>
+                Login</a>
+            </li>
+          </ul>
+          <ul *ngIf="isLoggedIn" class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <a href="/profile" class="nav-link" routerLink="profile"><mat-icon>account_circle</mat-icon>
+                profile</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" (click)="logout()"><mat-icon>logout</mat-icon> Log Out </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

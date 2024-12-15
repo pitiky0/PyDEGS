@@ -1,0 +1,66 @@
+<div class="background"></div>
+
+<div class="hero">
+  <h1 class="brand-name">Welcome to PyDEGS</h1>
+  <p class="intro-text">
+    PyDEGS (Python Differentially Expressed Gene Selection) is an innovative web application designed to simplify the analysis of RNA-Seq data. Explore the functionalities and tools available to streamline your research and gain valuable insights into gene expression.
+  </p>
+  <div *ngIf="!(isLoggedIn$ | async)">
+    <p class="get-started-text">
+      To begin, log in to your account and start importing your RNA-Seq data. Follow the guided steps to perform quality control, alignment, and analysis.
+    </p>
+  </div>
+  <button *ngIf="!(isLoggedIn$ | async)" class="cta-button" routerLink="/register" aria-label="Get Started">Get Started</button>
+  <button *ngIf="isLoggedIn$ | async" class="cta-button" routerLink="/Upload-file" aria-label="Import Data">Upload File</button>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10 text-center">
+      <div *ngIf="isLoggedIn$ | async" class="welcome-message">
+        <h3>Welcome, {{ username$ | async }}!</h3>
+      </div>
+      <h1 class="mt-4">Key Features</h1>
+      <mat-card class="features-card">
+        <ul class="features-list list-unstyled">
+          <li><mat-icon>import_contacts</mat-icon> Import and manage RNA-Seq data</li>
+          <li><mat-icon>check_circle</mat-icon> Quality control and filtering of sequencing data</li>
+          <li><mat-icon>timeline</mat-icon> Alignment to reference genomes</li>
+          <li><mat-icon>bar_chart</mat-icon> Gene expression quantification</li>
+          <li><mat-icon>show_chart</mat-icon> Differential expression analysis</li>
+<!--          <li><mat-icon>nature</mat-icon> Gene ontology annotation and enrichment analysis</li>-->
+          <li><mat-icon>insights</mat-icon> Interactive data visualizations</li>
+          <li><mat-icon>save_alt</mat-icon> Export results in various formats</li>
+        </ul>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <!--<div class="footer-container">
+    <div class="footer-column">
+      <h2 class="footer-logo">PyDEGS</h2>
+      <p class="footer-description">
+        PyDEGS (Python Differentially Expressed Gene Selection) is an innovative web application designed to simplify the analysis of RNA-Seq data.
+      </p>
+    </div>
+    <div class="footer-column">
+      <h5 class="footer-heading">Useful Links</h5>
+      <ul class="footer-links">
+        <li><a href="#" routerLink="#">Terms of Service</a></li>
+        <li><a href="#" routerLink="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h5 class="footer-heading">Contact Us</h5>
+      <ul class="footer-links">
+        <li><a href="mailto:info@pydegs.com">infopydegs.com</a></li>
+        <li><a href="tel:+15551234567">+1-555-123-4567</a></li>
+      </ul>
+    </div>
+  </div>-->
+  <div class="footer-bottom">
+    <p>© {{ currentYear }} PyDEGS - All Rights Reserved</p>
+  </div>
+</footer>

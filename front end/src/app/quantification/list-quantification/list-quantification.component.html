@@ -1,0 +1,43 @@
+<!-- diff-expression-results.component.html -->
+
+<div class="quantification-list-container">
+  <h1>Quantification Results</h1>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search files..."
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+    />
+  </div>
+
+  <ul>
+    <li *ngFor="let file of filteredFiles">
+      <div class="file-details">
+        <span class="file-name">{{ file.file_name }}</span>
+        <div class="file-actions">
+          <button class="btn download-btn" (click)="onDownload(file.file_name)">Download</button>
+          <button class="btn report-btn" (click)="viewReport(file.report_url)" *ngIf="file.report_url">View Report</button>
+          <button class="btn info-btn" (click)="onGetInfo(file)">
+            {{ file.showInfo ? 'Hide Info' : 'Get Info' }}
+          </button>
+          <button class="btn delete-btn" (click)="onDelete(file)">Delete</button>
+        </div>
+      </div>
+      <div *ngIf="file.showInfo && file.info" class="file-info">
+        <p><strong>File Name:</strong> {{ file.info.file_name }}</p>
+<!--        <p><strong>Size:</strong> {{ file.info.size }} bytes</p>-->
+        <p><strong>Size:</strong> {{ (file.info.size / (1024 * 1024)) | number: '1.2-2' }} MB</p>
+        <p><strong>Last Modified:</strong> {{ file.info.last_modified }}</p>
+<!--        <p *ngIf="file.info.tags"><strong>Tags:</strong> {{ file.info.tags | json }}</p> &lt;!&ndash; Display tags &ndash;&gt;-->
+        <p *ngIf="file.info.tags && Object.keys(file.info.tags).length > 0">
+          <strong>Tags:</strong> {{ file.info.tags | json }}
+        </p>
+      </div>
+      <div *ngIf="file.deleteMessage" [ngClass]="{'alert-success': file.messageClass === 'success', 'alert-danger': file.messageClass === 'error'}" class="alert mt-3">
+        {{ file.deleteMessage }}
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,143 @@
+/* General Container Styling */
+.container {
+  margin-top: 5rem;
+}
+
+.d-flex.justify-content-center.align-items-center.min-vh-100 {
+  min-height: 100vh;
+}
+
+/* Edit Profile Card Styling */
+.edit-profile-card {
+  position: relative;
+  background-size: cover;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.1);
+}
+
+.edit-profile-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 1rem;
+  background-color: #ffffff;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 1.5rem 3rem rgba(18, 38, 63, 0.2);
+}
+
+.card-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Form Styling */
+.form-label {
+  font-weight: bold;
+  color: #7f8c8d;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Button Styling */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.125rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary {
+  background-color: #7f8c8d;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #616a6b;
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(127, 140, 141, 0.3);
+}
+
+.btn i {
+  margin-right: 0.5rem;
+}
+
+/* Alert Styling */
+.alert {
+  font-size: 1.25rem;
+}
+
+/* Additional Styling */
+.card-body {
+  background-color: #f8f9fa;
+  padding: 3rem;
+}
+
+h2.card-title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #34495e;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #e1e1e1;
+  margin-bottom: 2rem;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .d-flex.justify-content-center.mt-5.gap-3 {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .d-flex.justify-content-center.mt-5.gap-3 button {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .row .col-md-6 {
+    width: 100%;
+  }
+}

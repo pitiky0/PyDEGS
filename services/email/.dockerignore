@@ -1,0 +1,55 @@
+# Ignore Python cache files
+__pycache__
+__pycache__/
+__pycache__/*
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore git files
+.git
+.gitignore
+
+# Ignore logs
+*.log
+
+# Ignore local configuration files
+*.cfg
+*.ini
+.env
+
+# Ignore Dockerfile and docker-compose files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore test and documentation directories
+tests/
+docs/
+
+# Ignore IDE specific files
+.idea
+.idea/
+*.swp
+*.swo
+*.swn
+.vscode/
+alembic/
+alembic.ini
+.venv
+*.bak
+*.tmp
+*.tlog
+*.obj
+*.bin
+*.user
+*.suo
+*.cache
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.bak.*
+*.bak_*
+*.bak-*
+README
+*.mako

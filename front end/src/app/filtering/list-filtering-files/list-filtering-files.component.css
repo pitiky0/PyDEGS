@@ -1,0 +1,194 @@
+/* General container styling */
+.files-list-container {
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+/* Styling for the search bar */
+.search-bar {
+    margin-bottom: 16px;
+}
+  
+.search-bar input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+  
+/* Styling for the unordered list */
+.files-list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+/* Styling for each list item */
+.files-list-container li {
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+  
+/* Hover effect for list items */
+.files-list-container li:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+  
+/* Styling for file details container */
+.file-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+  
+/* Styling for the file name */
+.file-name {
+    font-size: 16px;
+    font-weight: bold;
+    flex: 1;
+    min-width: 200px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+  
+/* Styling for the file actions container */
+.file-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+  
+/* Styling for buttons */
+.files-list-container .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+  
+/* Styling for download button */
+.files-list-container .download-btn {
+    background-color: #007bff;
+    color: #ffffff;
+}
+  
+/* Hover effect for download button */
+.files-list-container .download-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+  
+/* Styling for info button */
+.files-list-container .info-btn {
+    background-color: #28a745;
+    color: #ffffff;
+}
+  
+/* Hover effect for info button */
+.files-list-container .info-btn:hover {
+    background-color: #1e7e34;
+    transform: translateY(-2px);
+}
+
+/* Styling for Top Reads button */
+.files-list-container .top-reads-btn {
+    background-color: #ffc107;
+    color: #ffffff;
+}
+
+/* Hover effect for Top Reads button */
+.files-list-container .top-reads-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+/* Styling for delete button */
+.files-list-container .delete-btn {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+  
+/* Hover effect for delete button */
+.files-list-container .delete-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+  
+/* Styling for the file info */
+.file-info {
+    margin-top: 12px;
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+  
+/* Styling for alert messages */
+.alert {
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+  
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+  
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+  
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+    .file-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+  
+    .file-actions {
+        margin-top: 8px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+  
+    .files-list-container .btn {
+        width: 48%;
+    }
+}
+
+/* Styling for the top reads */
+.file-top-reads {
+    margin-top: 12px;
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.read-item {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.read-sequence {
+    flex: 1;
+    word-break: break-all;
+}
+
+.read-count {
+    margin-left: 8px;
+}

@@ -1,0 +1,53 @@
+<div class="container">
+  <h2>Align FASTQ Files</h2>
+
+ 
+  <div *ngIf="isLoading" class="loading-container">
+    <span class="loading">Alignment in progress...</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+  <br>
+  <ul class="file-list">
+    <li *ngFor="let file of fastqFiles" class="file-name">
+      {{ file.file_name }}
+      <button class="btn" (click)="openReferenceModal(file.file_name)" [disabled]="isLoading">Align</button>
+    </li>
+  </ul>
+
+
+  <!-- Modal for reference genome files and file upload -->
+  <div *ngIf="showReferenceModal" class="modal" (click)="closeReferenceModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeReferenceModal()">&times;</span>
+      <h3>Reference Genome Files</h3>
+
+      <div class="form-group">
+        <label for="referenceFileSelect">Select Reference File:</label>
+        
+        <select id="referenceFileSelect" [(ngModel)]="selectedReferenceFile" class="form-control">
+          <option value="" disabled selected>Select a reference file</option>
+          <option *ngFor="let file of referenceFiles" [value]="file.file_name">{{ file.file_name }}</option>
+        </select>
+      </div>
+<br>
+      <button (click)="performAlignment()" [disabled]="isLoading || !selectedReferenceFile" class="btn btn-primary">Start Alignment</button>
+      
+      <hr>
+
+      <h3>Upload Reference Genome File</h3>
+      <div class="form-group">
+        <label for="referenceFileUpload">Select File:</label>
+        <input type="file" id="referenceFileUpload" (change)="onFileSelected($event)" class="form-control">
+      </div>
+<br>
+      <button (click)="uploadSelectedFile()" class="btn btn-primary" [disabled]="!selectedFileToUpload">Upload</button>
+    </div>
+  </div>
+</div>

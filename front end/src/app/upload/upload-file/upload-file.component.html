@@ -1,0 +1,36 @@
+
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h5 class="text-center">Upload File</h5>
+      <hr>
+      <p class="text-center text-muted">Please follow the steps below to upload your file:</p>
+      <ul class="instruction-list">
+        <li><strong>Select a file:</strong> Click the "Choose File" button and select a file from your computer.</li>
+        <li><strong>Ensure correct format:</strong> Make sure your file is in .fastq.gz format.</li>
+        <li><strong>Upload:</strong> Click the "Upload File" button to start uploading.</li>
+        <li><strong>Monitor progress:</strong> The progress bar will indicate the upload status.</li>
+        <li><strong>Check status:</strong> After uploading, check the message for the result.</li>
+      </ul>
+      <div class="form-group">
+        <label for="fileInput" class="form-label">Choose File</label>
+        <input type="file" id="fileInput" class="form-control" (change)="onFileSelected($event)" accept=".fastq.gz" aria-describedby="fileHelp">
+        <small id="fileHelp" class="form-text text-muted">Supported format: .fastq.gz.</small>
+        <small *ngIf="fileError" class="form-text text-danger">{{ fileError }}</small>
+      </div>
+      <div class="form-group text-center mt-3">
+        <button class="btn btn-primary" (click)="onUpload()" [disabled]="!selectedFile || fileError" [attr.aria-disabled]="!selectedFile || fileError">Upload File</button>
+      </div>
+      <div *ngIf="uploadProgress >= 0" class="progress mt-3">
+        <div class="progress-bar" role="progressbar" [style.width.%]="uploadProgress" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100">{{uploadProgress}}%</div>
+      </div>
+      <div *ngIf="uploadMessage" [ngClass]="{'alert-success': messageClass === 'success', 'alert-danger': messageClass === 'error'}" class="alert mt-3">
+        {{ uploadMessage }}
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+    </div>
+  </div>
+</div>

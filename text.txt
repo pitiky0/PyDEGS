@@ -1,0 +1,78 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Biologiste as Bio
+actor Informaticien as Info
+actor Administrateur as Admin
+
+package PyDEGS-System {
+
+  usecase "Importer les données FASTQ" as Importer
+  usecase "Gérer les données FASTQ" as GérerFASTQ
+
+  usecase "Contrôler la qualité des données" as ContrôleQualité
+  usecase "Filtrer les données" as Filtrer
+
+  usecase "Aligner les données" as Aligner
+  usecase "Quantifier l'expression des gènes" as Quantifier
+  usecase "Identifier les gènes différemment exprimés" as Identifier
+  usecase "Prédiction de la fonction des gènes" as Fonction
+  usecase "Visualiser les résultats" as Visualiser
+
+  usecase "Exporter les visualisations" as ExporterVisu
+  usecase "Exporter les résultats" as ExporterResultats
+  usecase "Gérer les utilisateurs" as GérerUtilisateurs
+  usecase "Configurer le système" as Configurer
+
+  usecase "Interagit avec des systèmes de stockage externes (ordinateur local, services cloud... etc.)"
+  usecase  "Génération de rapports et de visualisations de qualité (histogrammes, box plots... etc.)"
+  usecase  "Définir les critères de filtrage"
+  usecase  "Choix de l'outil d'alignement"
+  usecase  "Sélection les données filtrées"
+  usecase  "Sélection du génome de référence"
+  usecase  "Sélection les fichiers BAM/SAM (résultats d'alignement)"
+  usecase  "Sélection d'outil d'Analyse différentielle"
+  usecase  "Sélection les métadonnées"
+  usecase  "Sélection de count Matrix (résultat de quantification)"
+  usecase  "Sélection d'outil d'ontologie des gènes "
+  usecase  "Définir les paramètres de l'outil"
+  usecase  "Sélection de type de visualisation (Volcano plots, MA plots, heatmaps, gene expression tables)"
+  usecase  "Options de format de fichier (CSV, TXT, XLSX) pour les listes de gènes, les données d'expression et les sorties statistiques"
+}
+
+Bio --> Importer
+Bio --> ContrôleQualité
+Bio --> Filtrer
+Bio --> Aligner
+Bio --> Quantifier
+Bio --> Identifier
+Bio --> Fonction
+Bio --> Visualiser
+Bio --> ExporterVisu
+Bio --> ExporterResultats
+
+Info --> GérerFASTQ
+Info --> Configurer
+
+Admin --> GérerUtilisateurs
+
+Importer ..> "Interagit avec des systèmes de stockage externes (ordinateur local, services cloud... etc.)" : <<include>>
+ContrôleQualité ..> "Génération de rapports et de visualisations de qualité (histogrammes, box plots... etc.)" : <<include>>
+Filtrer ..> "Définir les critères de filtrage" : <<include>>
+Aligner ..> "Choix de l'outil d'alignement" : <<include>>
+Aligner ..> "Sélection les données filtrées" : <<include>>
+Aligner ..> "Sélection du génome de référence" : <<include>>
+Quantifier ..> "Sélection les fichiers BAM/SAM (résultats d'alignement)" : <<include>>
+Identifier ..> "Sélection d'outil d'Analyse différentielle" : <<include>>
+Identifier ..> "Sélection les métadonnées" : <<include>>
+Fonction ..> "Sélection de count Matrix (résultat de quantification)" : <<include>>
+Fonction ..> "Sélection d'outil d'ontologie des gènes" : <<include>>
+ExporterVisu ..> "Définir les paramètres de l'outil" : <<include>>
+ExporterVisu ..> "Sélection de type de visualisation (Volcano plots, MA plots, heatmaps, gene expression tables)" : <<include>>
+ExporterResultats ..> "Options de format de fichier (CSV, TXT, XLSX) pour les listes de gènes, les données d'expression et les sorties statistiques" : <<include>>
+
+ExporterVisu .> Visualiser : <<extend>>
+GérerFASTQ ..> Importer : <<include>>
+
+@enduml

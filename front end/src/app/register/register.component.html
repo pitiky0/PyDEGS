@@ -1,0 +1,84 @@
+<div class="background"></div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg mt-5">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Register</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-3">
+              <label for="username">Username <span class="info-icon" (mouseenter)="showInfo('username')" (mouseleave)="hideInfo('username')">&#9432;</span></label>
+              <input id="username" type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+              <div *ngIf="infoVisible['username']" class="info-text">
+                Username should be unique and between 3 to 15 characters long.
+              </div>
+              <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                <div *ngIf="f['username'].errors['required']">Username is required</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="email">Email <span class="info-icon" (mouseenter)="showInfo('email')" (mouseleave)="hideInfo('email')">&#9432;</span></label>
+              <input id="email" type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+              <div *ngIf="infoVisible['email']" class="info-text">
+                Please provide a valid email address.
+              </div>
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="password">Password <span class="info-icon" (mouseenter)="showInfo('password')" (mouseleave)="hideInfo('password')">&#9432;</span></label>
+              <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+              <div *ngIf="infoVisible['password']" class="info-text">
+                A strong password should be at least 8 characters long and include a mix of upper and lower case letters, numbers, and special characters.
+              </div>
+              <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                <div *ngIf="f['password'].errors['required']">Password is required</div>
+                <div *ngIf="f['password'].errors['minlength']">Password must be at least 8 characters</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 form-group mb-3">
+                <label for="first_name">First Name</label>
+                <input id="first_name" type="text" formControlName="first_name" class="form-control" />
+              </div>
+
+              <div class="col-md-6 form-group mb-3">
+                <label for="last_name">Last Name</label>
+                <input id="last_name" type="text" formControlName="last_name" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="gender">Gender</label>
+              <select id="gender" formControlName="gender" class="form-control">
+                <option value="" disabled selected>Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="birthdate">Birthdate</label>
+              <input id="birthdate" type="date" formControlName="birthdate" class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+              <button type="submit" class="btn btn-dark col-12">Register</button>
+            </div>
+            <div class="text-center mt-2">
+              <p>Already have an account? <a routerLink="/login" class="login-link">Login</a></p>
+            </div>
+            <hr>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+    <h2>Quantify Reads</h2>
+  
+    <h3>BAM Files:</h3>
+
+    <ul class="file-list">
+      <div *ngIf="isLoading" class="loading-container">
+        <span class="loading">Quantification in progress...</span>
+      </div>
+    
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+    
+      <div *ngIf="message" class="message">
+        {{ message }}
+      </div>
+      <br>
+      <li *ngFor="let file of bamFiles" class="file-name">
+        {{ file.file_name }}
+        <button class="btn" (click)="openAnnotationModal(file.file_name)" [disabled]="isLoading">Quantify</button>
+      </li>
+    </ul>
+  
+
+  
+    <!-- Modal for annotation files -->
+    <div *ngIf="showAnnotationModal" class="modal" (click)="closeAnnotationModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeAnnotationModal()">×</span>
+        <h3>Annotation Files</h3>
+  
+ 
+  
+        <div class="form-group">
+          <label for="annotationFileUpload">Upload New Annotation File:</label>
+          <input type="file" id="annotationFileUpload" (change)="onFileSelected($event)" class="form-control">
+        </div>
+  <br>
+        <button (click)="uploadSelectedFile()" class="btn btn-primary" [disabled]="!selectedFileToUpload">Upload</button>
+  
+  <div class="form-group">
+    <label for="annotationFileSelect">Select Existing Annotation File:</label>
+    <select id="annotationFileSelect" [(ngModel)]="selectedAnnotationFile" class="form-control">
+      <option value="" disabled selected>Select an annotation file</option>
+      <option *ngFor="let file of annotationFiles" [value]="file.file_name">{{ file.file_name }}</option>
+    </select>
+  </div>
+  <br>
+        <button (click)="performQuantification()" 
+                [disabled]="isLoading || (!selectedAnnotationFile && !selectedFileToUpload) || annotationFiles.length === 0" 
+                class="btn btn-primary">Start Quantification</button>
+      </div>
+    </div>
+  </div>

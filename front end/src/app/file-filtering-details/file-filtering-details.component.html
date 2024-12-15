@@ -1,0 +1,155 @@
+<div class="background"></div>
+
+<!-- User Guide Tabs -->
+<div class="tab-container user-guide-container">
+    <button class="tablinks" data-tab="Analyze" [class.active]="activeTab === 'Analyze'" (click)="setActiveTab('Analyze')">Analyze</button>
+    <button class="tablinks" data-tab="Filter" [class.active]="activeTab === 'Filter'" (click)="setActiveTab('Filter')">Filter</button>
+    <button class="tablinks" data-tab="Align" [class.active]="activeTab === 'Align'" (click)="setActiveTab('Align')">Align</button>
+</div>
+
+<!-- Analyze Tab Content -->
+<div *ngIf="activeTab === 'Analyze'" id="Analyze" class="tabcontent user-guide-container">
+    <h3 class="text-xl">Analyze</h3>
+    <hr>
+    <p class="text-gray-600">The <strong>Analyze</strong> feature allows you to perform a quality control analysis on the selected file.</p>
+    <ol class="list-decimal">
+        <li class="mb-2">Click the <strong>Analyze</strong> button below the file details.</li>
+        <li class="mb-2">Wait for the process to complete, which checks for potential issues and provides a detailed report.</li>
+        <li class="mb-2">Review the report to identify any quality issues in the file.</li>
+    </ol>
+</div>
+
+<!-- Filter Tab Content -->
+<div *ngIf="activeTab === 'Filter'" id="Filter" class="tabcontent user-guide-container">
+    <h3 class="text-xl">Filter</h3>
+    <hr>
+    <p class="text-gray-600">The <strong>Filter</strong> feature lets you specify parameters to filter the file content.</p>
+    <ol class="list-decimal">
+        <li class="mb-2">Click the <strong>Filter</strong> button below the file details to open the filter options modal.</li>
+        <li class="mb-2">Set your filter parameters:</li>
+        <ul class="list-disc">
+            <li class="mb-1"><strong>Truncate Start Bases:</strong> Number of bases to truncate from the start.</li>
+            <li class="mb-1"><strong>Truncate End Bases:</strong> Number of bases to truncate from the end.</li>
+            <li class="mb-1"><strong>Left Adapter:</strong> Sequence of the left adapter.</li>
+            <li class="mb-1"><strong>Right Adapter:</strong> Sequence of the right adapter.</li>
+            <li class="mb-1"><strong>Minimum Length:</strong> Minimum length of the sequence.</li>
+            <li class="mb-1"><strong>Maximum N Bases:</strong> Maximum number of N bases allowed.</li>
+            <li class="mb-1"><strong>Complexity (%):</strong> Minimum complexity percentage.</li>
+        </ul>
+        <li class="mb-2">Click <strong>Start Filtering</strong> to apply the filters to your file.</li>
+        <li class="mb-2">Review the filtered file for the desired content.</li>
+    </ol>
+</div>
+
+<!-- Align Tab Content -->
+<div *ngIf="activeTab === 'Align'" id="Align" class="tabcontent user-guide-container">
+    <h3 class="text-xl">Align</h3>
+    <hr>
+    <p class="text-gray-600">The <strong>Align</strong> feature aligns your file with a reference genome.</p>
+    <ol class="list-decimal">
+        <li class="mb-2">Click the <strong>Align</strong> button below the file details to open the reference genome modal.</li>
+        <li class="mb-2">Select an existing reference file from the dropdown or upload a new reference file.</li>
+        <li class="mb-2">Click <strong>Start Alignment</strong> to align your file with the selected reference genome.</li>
+        <li class="mb-2">Review the alignment results for accuracy.</li>
+    </ol>
+</div>
+
+<!-- File Details Section -->
+<div class="file-details-container bg-white shadow rounded-lg p-6" *ngIf="!isLoading">
+    <h2 class="text-2xl font-bold mb-4">Filtered File Details: {{ fileName }}</h2>
+    <hr class="mb-4">
+    <div class="file-info" *ngIf="fileInfo">
+        <p class="text-gray-700"><strong>File Name:</strong> {{ fileInfo.file_name }}</p>
+<!--        <p class="text-gray-700"><strong>Size:</strong> {{ fileInfo.size | number }} bytes</p>-->
+        <p class="text-gray-700"><strong>Size:</strong> {{ (fileInfo.size / (1024 * 1024)) | number: '1.2-2' }} MB</p>
+        <p class="text-gray-700"><strong>Last Modified:</strong> {{ fileInfo.last_modified | date:'short' }}</p>
+        <p class="text-gray-700"><strong>ETag:</strong> {{ fileInfo.etag }}</p>
+        <p class="text-gray-700"><strong>Content Type:</strong> {{ fileInfo.content_type }}</p>
+        <div class="button-group mt-4">
+            <button class="btn btn-outline-primary" (click)="performQualityControl(fileInfo.file_name)" [disabled]="isLoading">Analyze</button>
+            <button class="btn btn-outline-success" (click)="toggleForm(fileInfo.file_name)" [disabled]="isLoading">Filter</button>
+            <button class="btn btn-outline-info" (click)="openReferenceModal(fileInfo.file_name)" [disabled]="isLoading">Align</button>
+        </div>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+        {{ errorMessage }}
+    </div>
+</div>
+
+<div *ngIf="isLoading" class="loading-container text-center mt-4">
+    <span class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </span>
+    <div class="progress mt-3">
+        <div class="progress-bar" role="progressbar" [style.width.%]="progress" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+    </div>
+</div>
+
+<div *ngIf="showForm" class="modal" (click)="closeForm()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeForm()">&times;</span>
+      <h3>Filter Options for {{ selectedFile }}</h3>
+
+      <div class="form-group-container">
+        <div class="form-group">
+          <label for="truncateStartBases">Truncate Start Bases:</label>
+          <input type="number" id="truncateStartBases" [(ngModel)]="truncateStartBases" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="truncateEndBases">Truncate End Bases:</label>
+          <input type="number" id="truncateEndBases" [(ngModel)]="truncateEndBases" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="leftAdapter">Left Adapter:</label>
+          <input type="text" id="leftAdapter" [(ngModel)]="leftAdapter" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="rightAdapter">Right Adapter:</label>
+          <input type="text" id="rightAdapter" [(ngModel)]="rightAdapter" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="minLength">Minimum Length:</label>
+          <input type="number" id="minLength" [(ngModel)]="minLength" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="nBases">Maximum N Bases:</label>
+          <input type="number" id="nBases" [(ngModel)]="nBases" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="complexity">Complexity (%):</label>
+          <input type="number" id="complexity" [(ngModel)]="complexity" class="form-control">
+        </div>
+      </div>
+
+      <button (click)="onFilter()" class="btn btn-primary" [disabled]="isLoading || !selectedFile || !isFormValid()">Start Filtering</button>
+    </div>
+  </div>
+
+<!-- Modal for reference genome files and file upload -->
+<div *ngIf="showReferenceModal" class="modal" (click)="closeReferenceModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeReferenceModal()">&times;</span>
+        <h3 class="text-xl font-semibold mb-4">Reference Genome Files</h3>
+        <div class="form-group mb-4">
+            <label for="referenceFileSelect" class="block text-gray-700 font-bold mb-2">Select Reference File:</label>
+            <select id="referenceFileSelect" [(ngModel)]="selectedReferenceFile" class="form-control px-4 py-2 border rounded-lg w-full">
+                <option value="" disabled selected>Select a reference file</option>
+                <option *ngFor="let file of referenceFiles" [value]="file.file_name">{{ file.file_name }}</option>
+            </select>
+        </div>
+        <button (click)="performAlignment()" [disabled]="isLoading || !selectedReferenceFile" class="btn btn-primary">Start Alignment</button>
+        <hr class="my-4">
+        <h3 class="text-xl font-semibold mb-4">Upload Reference Genome File</h3>
+        <div class="form-group mb-4">
+            <label for="referenceFileUpload" class="block text-gray-700 font-bold mb-2">Select File:</label>
+            <input type="file" id="referenceFileUpload" (change)="onFileSelected($event)" class="form-control px-4 py-2 border rounded-lg w-full">
+        </div>
+        <button (click)="uploadSelectedFile()" class="btn btn-primary" [disabled]="!selectedFileToUpload">Upload</button>
+    </div>
+</div>

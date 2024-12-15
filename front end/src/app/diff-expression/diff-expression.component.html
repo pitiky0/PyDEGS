@@ -1,0 +1,50 @@
+<div class="container">
+  <h2>Differential Expression Analysis</h2>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <span class="loading">Differential Expression analysis in progress...</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+  <br>
+  <h3>Counts Files:</h3>
+  <ul class="file-list">
+    <li *ngFor="let file of countsFiles">
+      {{ file.file_name }}
+      <button class="btn" (click)="openMetadataModal(file.file_name)" [disabled]="isLoading">Analyze</button>
+    </li>
+  </ul>
+
+  <!-- Modal for metadata files -->
+  <div *ngIf="showMetadataModal" class="modal" (click)="closeMetadataModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeMetadataModal()">×</span>
+      <h3>Metadata Files</h3>
+
+      <div class="form-group">
+        <label for="metadataFileSelect">Select Metadata File:</label>
+        <select id="metadataFileSelect" [(ngModel)]="selectedMetadataFile" (change)="onMetadataFileChange()" class="form-control">
+          <option value="" disabled selected>Select a metadata file</option>
+          <option *ngFor="let file of metadataFiles" [value]="file.file_name">{{ file.file_name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="conditionSelect">Select Condition:</label>
+        <select id="conditionSelect" [(ngModel)]="selectedCondition" class="form-control">
+          <option value="" disabled selected>Select a condition</option>
+          <!-- You'll need to dynamically populate this based on your metadata -->
+          <option *ngFor="let condition of conditions" [value]="condition">{{ condition }}</option>
+        </select>
+      </div>
+
+      <button (click)="performDiffExpression()" [disabled]="isLoading || !selectedMetadataFile || !selectedCondition" class="btn btn-primary">Start Analysis</button>
+    </div>
+  </div>
+</div>

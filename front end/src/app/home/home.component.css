@@ -1,0 +1,239 @@
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+/* Background Style */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/DNA.jpg'); /* Ensure this path is correct */
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* Keep it behind all content */
+  opacity: 0.7; /* Slightly dim the background for better readability */
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text readability */
+  padding: 2rem;
+}
+
+.hero .brand-name {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff; /* Light color for contrast */
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add text shadow for readability */
+}
+
+.hero .intro-text {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  line-height: 1.5;
+  color: #ffffff; /* Light color for contrast */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Add text shadow for readability */
+}
+
+.hero .cta-button {
+  background-color: #f57c00;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero .cta-button:hover {
+  background-color: #ef6c00; /* Darker shade on hover */
+  transform: translateY(-3px); /* Slight lift effect */
+}
+
+/* Container Styling */
+.container {
+  margin-top: 3rem; /* Adjusted margin for better spacing */
+  padding: 0 2rem;
+  color: #333; /* Darker text for better readability */
+}
+
+/* Welcome Message Styling */
+.welcome-message h3 {
+  color: #5d7480; /* Secondary color */
+  margin-top: 2rem; /* Increased margin for spacing */
+}
+
+/* Features Card Styling */
+.features-card {
+  background: #fff; /* White background for better contrast */
+  border-radius: 15px; /* More rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Deeper shadow for more depth */
+  padding: 2.5rem; /* More padding for spacing */
+  margin-top: 2rem; /* Increased margin for spacing */
+  animation: fadeInUp 0.5s ease-in-out; /* Animation for entrance */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features-card:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More prominent shadow on hover */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.features-list {
+  font-size: 1.2rem; /* Slightly larger font size */
+  color: #333; /* Darker text for better readability */
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem; /* Increased margin for spacing */
+}
+
+.features-list mat-icon {
+  margin-right: 0.5rem; /* Spacing between icon and text */
+  color: #f57c00; /* Primary color for icons */
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #2c3e50;
+  color: #ffffff;
+  padding: 1rem 0; /* Increased padding for better spacing */
+  text-align: center;
+  width: 100%; /* Ensure the footer spans the full width */
+  margin-top: 15%;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px; /* Constrain the max width */
+  margin: 0 auto; /* Center the footer container */
+  padding: 0 2rem; /* Adjust padding to ensure spacing */
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+  margin: 1rem 0;
+}
+
+.footer-logo {
+  font-size: 2rem; /* Increased font size for prominence */
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.footer-description {
+  font-size: 0.7rem;
+  margin-bottom: 1.5rem; /* Increased bottom margin */
+  line-height: 1.6;
+}
+
+.footer-heading {
+  font-size: 1.5rem; /* Increased font size */
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #f57c00; /* Primary color for links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ef6c00; /* Darker shade on hover */
+}
+
+.social-links {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; /* Added top margin */
+}
+
+.social-links li {
+  margin: 0 0.5rem;
+}
+
+.social-links a {
+  color: #ffffff;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #f57c00; /* Primary color on hover */
+}
+
+.footer-bottom {
+  background-color: #1a252f;
+  padding: 1rem 0 0.5rem;
+  width: 100%; /* Ensure the footer-bottom spans the full width */
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero .brand-name {
+    font-size: 2.5rem; /* Adjust font size for smaller screens */
+  }
+
+  .hero .intro-text {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-column {
+    margin: 1rem 0;
+  }
+}

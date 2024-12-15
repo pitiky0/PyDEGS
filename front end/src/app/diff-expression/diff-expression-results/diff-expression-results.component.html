@@ -1,0 +1,39 @@
+<!-- diff-expression-results.component.html -->
+
+<div class="diff-expression-list-container">
+  <h1>Analyze Results</h1>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search groups..."
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+    />
+  </div>
+
+  <ul>
+    <li *ngFor="let group of filteredFiles">
+      <div class="group-details" (click)="toggleGroup(group)">
+        <span class="group-name" >{{ group.groupName }} Result</span>
+        <div class="group-actions">
+          <button class="btn download-btn"  style="margin-bottom: 10px" (click)="onDownloadGroup(group)">Download Group</button>
+        </div>
+      </div>
+
+      <ul *ngIf="group.showFiles">
+        <li *ngFor="let file of group.files">
+          <div class="file-actions">
+            <span class="file-name" (click)="onOpen(file)">{{ file.file_name }}</span>
+            <div class="p" id="{{ file.file_name.split('/')[1].replace('.', '') }}"></div>
+            <button class="btn download-btn" (click)="onDownload(file.file_name)">Download</button>
+            <button class="btn info-btn" (click)="onGetInfo(file)">
+              {{ file.showInfo ? 'Hide Info' : 'Get Info' }}
+            </button>
+            <button class="btn delete-btn" (click)="onDelete(file)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

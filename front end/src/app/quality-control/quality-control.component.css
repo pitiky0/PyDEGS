@@ -1,0 +1,176 @@
+/* Container styling */
+.quality-control-container {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  margin-top: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+h1, h3 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+
+}
+h4 {
+  color: #555;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Guide Text Styles */
+.text-muted {
+  color: #6c757d !important;
+}
+
+.instruction-list {
+  padding-left: 1.5em;
+  margin-bottom: 20px;
+}
+
+.instruction-list h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* List styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect for list items */
+li:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+/* Download button styling */
+button.download-btn {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+button.download-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Info button styling */
+button.info-btn {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+button.info-btn:hover {
+  background-color: #1e7e34;
+  transform: translateY(-2px);
+}
+
+/* Delete button styling */
+button.delete-btn {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+button.delete-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Loading and alert messages */
+.loading {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.alert {
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Progress Bar Styles */
+.progress {
+  height: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #e9ecef;
+  margin-top: 20px;
+}
+
+.progress-bar {
+  transition: width 0.4s ease;
+  background-color: #28a745;
+  font-size: 16px;
+  line-height: 30px;
+  color: white;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  button {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+
+/* Styling for the file name */
+.file-name {
+  font-size: 16px;
+  font-weight: bold;
+  flex: 1;
+  min-width: 200px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin-left: 0.5%;
+}

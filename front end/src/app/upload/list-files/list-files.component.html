@@ -1,0 +1,153 @@
+<div class="files-list-container">
+  <h1>FASTQ Files:</h1>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search files..."
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+    />
+  </div>
+  <div class="select-all-bar">
+    <input
+      type="checkbox"
+      [(ngModel)]="selectAll"
+      (change)="onSelectAllChange()"
+    /> Select All
+    <button class="btn deselect-all-btn" (click)="onDeselectAll()" [disabled]="!isAnyFileSelected()"></button>
+    <button class="btn bulk-download-btn" (click)="onBulkDownload()" [disabled]="!isAnyFileSelected()">Download Selected</button>
+    <button class="btn bulk-delete-btn" (click)="onBulkDelete()" [disabled]="!isAnyFileSelected()">Delete Selected</button>
+
+
+    <button class="btn bulk-analyze-btn" (click)="onBulkAnalyze()" [disabled]="!isAnyFileSelected()">Analyze</button>
+    <button class="btn bulk-filter-btn" (click)="onBulkFilter()" [disabled]="!isAnyFileSelected()">Filter</button>
+    <button class="btn bulk-align-btn" (click)="onBulkAlign()" [disabled]="!isAnyFileSelected()">Align</button>
+    <button class="btn bulk-group-btn" (click)="onGroupFiles()" [disabled]="!isAnyFileSelected()">Group</button>
+    <span class="selection-count">{{ getSelectedCount() }} files selected</span>
+  </div>
+  <ul>
+    <li *ngFor="let file of filteredFiles" [ngClass]="{'selected': file.selected}" (click)="onSingleClick(file)">
+      <div class="file-details">
+        <input type="checkbox" [(ngModel)]="file.selected" (click)="$event.stopPropagation()" />
+        <span class="file-name"> {{ file.file_name }}</span>
+        <div class="file-actions">
+          <button class="btn download-btn" (click)="onDownload(file.file_name); $event.stopPropagation()">Download</button>
+          <button class="btn info-btn" (click)="onGetInfo(file); $event.stopPropagation()">
+            {{ file.showInfo ? 'Hide Info' : 'Get Info' }}
+          </button>
+          <button class="btn top-reads-btn" (click)="onGetTopReads(file); $event.stopPropagation()">
+            {{ file.showTopReads ? 'Hide Top Reads' : 'Get Top Reads' }}
+          </button>
+          <button class="btn delete-btn" (click)="onDelete(file); $event.stopPropagation()">Delete</button>
+        </div>
+      </div>
+      <div *ngIf="file.showInfo && file.info" class="file-info">
+        <p><strong>File Name:</strong> {{ file.info.file_name }}</p>
+<!--        <p><strong>Size:</strong> {{ file.info.size }} bytes</p>-->
+        <p><strong>Size:</strong> {{ (file.info.size / (1024 * 1024)) | number: '1.2-2' }} MB</p>
+        <p><strong>Last Modified:</strong> {{ file.info.last_modified }}</p>
+<!--        <p *ngIf="file.info.tags"><strong>Tags:</strong> {{ file.info.tags | json }}</p>-->
+        <p *ngIf="file.info.tags && Object.keys(file.info.tags).length > 0">
+          <strong>Tags:</strong> {{ file.info.tags | json }}
+        </p>
+      </div>
+      <div *ngIf="file.showTopReads && file.topReads" class="file-top-reads">
+        <p><strong>Top Reads:</strong></p>
+        <ul>
+          <li *ngFor="let read of file.topReads.most_common">
+            <div class="read-item">
+              <span class="read-sequence">{{ read[0] }}</span>:
+              <span class="read-count">{{ read[1] }} reads</span>
+            </div>
+          </li>
+        </ul>
+        <p><strong>Total Reads:</strong> {{ file.topReads.total_reads }}</p>
+      </div>
+      <div *ngIf="file.deleteMessage" [ngClass]="{'alert-success': file.messageClass === 'success', 'alert-danger': file.messageClass === 'error'}" class="alert mt-3">
+        {{ file.deleteMessage }}
+      </div>
+    </li>
+  </ul>
+
+  <!-- Filter Modal -->
+  <div *ngIf="showForm" class="modal" (click)="closeForm()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeForm()">×</span>
+      <h3>Filter Options for {{ selectedFile }}</h3>
+      <div class="form-group-container">
+        <div class="form-group">
+          <label for="truncateStartBases">Truncate Start Bases:</label>
+          <input type="number" id="truncateStartBases" [(ngModel)]="truncateStartBases" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="truncateEndBases">Truncate End Bases:</label>
+          <input type="number" id="truncateEndBases" [(ngModel)]="truncateEndBases" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="leftAdapter">Left Adapter:</label>
+          <input type="text" id="leftAdapter" [(ngModel)]="leftAdapter" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="rightAdapter">Right Adapter:</label>
+          <input type="text" id="rightAdapter" [(ngModel)]="rightAdapter" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="minLength">Minimum Length:</label>
+          <input type="number" id="minLength" [(ngModel)]="minLength" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="nBases">Maximum N Bases:</label>
+          <input type="number" id="nBases" [(ngModel)]="nBases" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="complexity">Complexity (%):</label>
+          <input type="number" id="complexity" [(ngModel)]="complexity" class="form-control">
+        </div>
+      </div>
+      <button (click)="onFilter()" class="btn btn-primary" [disabled]="isLoading || !selectedFile || !isFormValid()">Start Filtering</button>
+    </div>
+  </div>
+
+  <!-- Align Modal -->
+  <div *ngIf="showReferenceModal" class="modal" (click)="closeReferenceModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeReferenceModal()">×</span>
+      <h3 class="text-xl font-semibold mb-4">Reference Genome Files</h3>
+      <div class="form-group mb-4">
+        <label for="referenceFileSelect" class="block text-gray-700 font-bold mb-2">Select Reference File:</label>
+        <select id="referenceFileSelect" [(ngModel)]="selectedReferenceFile" class="form-control px-4 py-2 border rounded-lg w-full">
+          <option value="" disabled selected>Select a reference file</option>
+          <option *ngFor="let file of referenceFiles" [value]="file.file_name">{{ file.file_name }}</option>
+        </select>
+      </div>
+      <button (click)="performAlignment()" [disabled]="isLoading || !selectedReferenceFile" class="btn btn-primary">Start Alignment</button>
+      <hr class="my-4">
+      <h3 class="text-xl font-semibold mb-4">Upload Reference Genome File</h3>
+      <div class="form-group mb-4">
+        <label for="referenceFileUpload" class="block text-gray-700 font-bold mb-2">Select File:</label>
+        <input type="file" id="referenceFileUpload" (change)="onFileSelected($event)" class="form-control px-4 py-2 border rounded-lg w-full">
+      </div>
+      <button (click)="uploadSelectedFile()" class="btn btn-primary" [disabled]="!selectedFileToUpload">Upload</button>
+    </div>
+  </div>
+
+  <!-- Group Name Modal -->
+  <div *ngIf="showGroupNameModal" class="modal" (click)="closeGroupNameModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeGroupNameModal()">×</span>
+      <h3>Enter Group Name</h3>
+      <div class="form-group">
+        <input
+          type="text"
+          id="groupName"
+          placeholder="Group Name"
+          [(ngModel)]="groupName"
+          class="form-control"
+        />
+      </div>
+      <br>
+      <button class="btn btn-primary" (click)="confirmGroupName()">Confirm</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,174 @@
+#navbar {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  width: 100%;
+  color: white;
+  padding: 10px 20px;
+  z-index: 1000;
+  /*background-color: #2c3e50; /* Updated background color */
+}
+
+#navbar .navbar-brand,
+#navbar .nav-link {
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s, background-color 0.3s; /* Smooth transition for color changes */
+}
+
+#navbar .navbar-brand:hover,
+#navbar .nav-link:hover {
+  color: black; /* Hover text color */
+  background-color: #5d7480; /* Hover background color */
+  border-radius: 5px; /* Rounded corners on hover */
+}
+
+#navbar .navbar-nav .nav-link {
+  padding: 10px 15px;
+  margin: 0 5px;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: #f7f8f3; /* Sidenav background color */
+  border-right: 1px solid #e0e0e0; /* Add border */
+}
+
+.sidenav .mat-toolbar {
+  background: #5d7480; /* Sidenav toolbar background color */
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #5d7480;
+}
+
+.dropdown-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  padding-right: 10px;
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  word-wrap: break-word; /* Allow text to break to the next line */
+}
+.dropdown-btn-qc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  padding-right: 43px;
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  word-wrap: break-word; /* Allow text to break to the next line */
+}
+.dropdown-btn-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  padding-right: 89px;
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  word-wrap: break-word; /* Allow text to break to the next line */
+}
+.dropdown-btn-align {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  padding-right: 74px;
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  word-wrap: break-word; /* Allow text to break to the next line */
+}
+.dropdown-btn-quantifier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  padding: 6px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  padding-right: 50px;
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  word-wrap: break-word; /* Allow text to break to the next line */
+}
+
+
+.dropdown-container {
+  display: none;
+  background-color: #f1f1f1;
+  padding-left: 16px;
+}
+
+.dropdown-container.active {
+  display: block;
+}
+
+.mat-list-item {
+  font-size: 16px;
+  padding: 10px 16px;
+}
+
+.mat-list-item:hover {
+  background-color: #e0e0e0;
+}
+
+.mat-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.mat-nav-list a {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+.mat-nav-list a:hover {
+  background-color: #e0e0e0;
+}
+
+.mat-nav-list a .mat-icon {
+  margin-right: 8px;
+}
